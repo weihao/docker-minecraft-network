@@ -1,0 +1,43 @@
+version: "3.7"
+
+services:
+  bungeecord:
+    image: itzg/bungeecord
+    ports:
+      - "25566:25577"
+      - "9225:9225"
+    volumes:
+      - "./bungeecord/plugins:/server/plugins" # <- read/write
+      - "./bungeecord/config:/config:ro"
+    environment:
+      TYPE: "WATERFALL"
+      MEMORY: "256M"
+      ENABLE_RCON: "false"
+    restart: unless-stopped
+
+  server1:
+    image: itzg/minecraft-server
+    environment:
+      EULA: "TRUE"
+      TYPE: "PAPER"
+      INIT_MEMORY: "1G"
+      MAX_MEMORY: "4G"
+      VERSION: "1.18.2"
+      COPY_CONFIG_DEST: "/data"
+      USE_AIKAR_FLAGS: "TRUE"
+    restart: unless-stopped
+    volumes:
+      - "./server/config:/config:ro"
+  server2:
+    image: itzg/minecraft-server
+    environment:
+      EULA: "TRUE"
+      TYPE: "PAPER"
+      INIT_MEMORY: "1G"
+      MAX_MEMORY: "4G"
+      VERSION: "1.18.2"
+      COPY_CONFIG_DEST: "/data"
+      USE_AIKAR_FLAGS: "TRUE"
+    restart: unless-stopped
+    volumes:
+      - "./server/config:/config:ro"
