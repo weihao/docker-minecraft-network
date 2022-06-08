@@ -4,7 +4,7 @@ services:
   bungeecord:
     image: itzg/bungeecord
     ports:
-      - "25566:25577"
+      - "25565:25577"
       - "9225:9225"
     volumes:
       - "./bungeecord/plugins:/server/plugins" # <- read/write
@@ -28,6 +28,7 @@ services:
     restart: unless-stopped
     volumes:
       - "./server/config:/config:ro"
+      - "./server/plugins:/plugins:ro"
   server2:
     image: itzg/minecraft-server
     environment:
@@ -41,3 +42,4 @@ services:
     restart: unless-stopped
     volumes:
       - "./server/config:/config:ro"
+      - "./server/plugins:/plugins:ro"
